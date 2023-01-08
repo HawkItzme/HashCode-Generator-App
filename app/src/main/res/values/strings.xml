@@ -5,6 +5,7 @@
     <string name="hash_generator">Hash Generator</string>
     <string name="text_here">Text here..</string>
     <string name="clear">Clear</string>
+    <string name="copy">Copy</string>
 
     <string-array name="hash_algorithms">
         <item>SHA-256</item>

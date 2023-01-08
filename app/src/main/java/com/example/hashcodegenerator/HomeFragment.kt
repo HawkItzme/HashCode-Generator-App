@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.hashcodegenerator.databinding.FragmentHomeBinding
@@ -13,6 +14,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
+
+    private val homeViewModel: HomeViewModel by viewModels()
 
     private var  _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -46,15 +49,30 @@ class HomeFragment : Fragment() {
         inflater.inflate(R.menu.home_menu, menu)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.clear_menu){
+            binding.plainText.text.clear()
+            showSnackBar("Cleared.")
+            return true
+        }
+        return true
+    }
+
     private fun onGenerateClicked(){
         if (binding.plainText.text.isEmpty()){
             showSnackBar("Field Empty.")
         }else{
             lifecycleScope.launch{
                 applyAnimations()
-                navigateToSuccess()
+                navigateToSuccess(getHashData())
             }
         }
+    }
+
+    private fun getHashData(): String{
+        val algorithm = binding.autoCompleteTV.text.toString()
+        val plainText = binding.plainText.text.toString()
+        return homeViewModel.getHash(plainText, algorithm)
     }
 
     private suspend fun applyAnimations(){
@@ -81,8 +99,9 @@ class HomeFragment : Fragment() {
         delay(1500L)
     }
 
-    private fun navigateToSuccess(){
-        findNavController().navigate(R.id.action_homeFragment_to_successFragment)
+    private fun navigateToSuccess(hash: String){
+        val directions = HomeFragmentDirections.actionHomeFragmentToSuccessFragment(hash)
+        findNavController().navigate(directions)
     }
 
     private fun showSnackBar(message: String){
