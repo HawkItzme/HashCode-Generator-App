@@ -5,9 +5,10 @@
       <map>
         <entry key="..\:/HashCodeGenerator/app/src/main/res/drawable/ic_ani_logo.xml" value="0.2385" />
         <entry key="..\:/HashCodeGenerator/app/src/main/res/layout/activity_main.xml" value="0.23229166666666667" />
+        <entry key="..\:/HashCodeGenerator/app/src/main/res/layout/copy_message.xml" value="0.17647058823529413" />
         <entry key="..\:/HashCodeGenerator/app/src/main/res/layout/drop_down_item.xml" value="0.14074074074074075" />
         <entry key="..\:/HashCodeGenerator/app/src/main/res/layout/fragment_home.xml" value="0.1" />
-        <entry key="..\:/HashCodeGenerator/app/src/main/res/layout/fragment_success.xml" value="0.2" />
+        <entry key="..\:/HashCodeGenerator/app/src/main/res/layout/fragment_success.xml" value="0.264" />
         <entry key="..\:/HashCodeGenerator/app/src/main/res/menu/home_menu.xml" value="0.2" />
       </map>
     </option>

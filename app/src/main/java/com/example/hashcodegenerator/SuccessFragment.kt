@@ -9,9 +9,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.hashcodegenerator.databinding.FragmentHomeBinding
 import com.example.hashcodegenerator.databinding.FragmentSuccessBinding
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SuccessFragment : Fragment() {
 
@@ -37,13 +40,32 @@ class SuccessFragment : Fragment() {
     }
 
     private fun onCopyClicked(){
-        copyToClipboard(args.hash)
+        lifecycleScope.launch{
+            copyToClipboard(args.hash)
+            applyAnimation()
+        }
     }
 
     private fun copyToClipboard(hash: String){
         val clipboardManager = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clipData = ClipData.newPlainText("Encrypted Text", hash)
         clipboardManager.setPrimaryClip(clipData)
+    }
+
+    private suspend fun applyAnimation(){
+        binding.include.messageBg.animate().translationY(80f).duration = 200L
+        binding.include.messageTextView.animate().translationY(80f).duration = 200L
+
+        delay(2000L)
+
+        binding.include.messageBg.animate().translationY(-80f).duration = 500L
+        binding.include.messageTextView.animate().translationY(-80f).duration = 500L
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
